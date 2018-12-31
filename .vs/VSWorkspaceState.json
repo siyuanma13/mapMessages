@@ -2,9 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\client",
-    "\\client\\public",
-    "\\client\\src"
+    "\\client\\src",
+    "\\server"
   ],
-  "SelectedNode": "\\client\\src\\App.js",
+  "SelectedNode": "\\package-lock.json",
   "PreviewInSolutionExplorer": false
 }
