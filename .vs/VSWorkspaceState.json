@@ -3,8 +3,11 @@
     "",
     "\\client",
     "\\client\\src",
-    "\\server"
+    "\\server",
+    "\\server\\src",
+    "\\server\\src\\api",
+    "\\server\\test"
   ],
-  "SelectedNode": "\\package-lock.json",
+  "SelectedNode": "\\client\\src\\App.js",
   "PreviewInSolutionExplorer": false
 }
