@@ -81,7 +81,7 @@ class App extends Component {
                 //combine points with the same lat/long
                 const haveSeenPosition = {};
                 messages = messages.reduce((all, message) => {
-                    const key = `${message.latitude.toFixed(4)} + ${message.longitude.toFixed(4)}`;
+                    const key = `${message.latitude} + ${message.longitude}`;
                     if (haveSeenPosition[key]) {
                         haveSeenPosition[key].otherMessages = haveSeenPosition[key].otherMessages || []
                         haveSeenPosition[key].otherMessages.push(message);
@@ -199,14 +199,7 @@ class App extends Component {
     render() {
 
         const userPosition = [this.state.location.lat, this.state.location.lng];
-        let newloc = true;
-        //for each loop will cause reredering after this check is completed.
-        this.state.messages.forEach(element => {
-            if (element.latitude === userPosition[0] && element.longitude === userPosition[1]) {
-                newloc = false; 
-                return;
-            }
-                }); 
+        let newLocation = true;
     
         return (
         <div className="map">
@@ -218,19 +211,13 @@ class App extends Component {
                     />
                     
 
-                    {this.state.haveUsersLocation && (this.state.messages.length === 0 || newloc)?
-                        <Marker
-                            position={userPosition}
-                            icon={myIcon}>
-                            <Popup>
-                                You are here! Leave a message for the world to see!
-
-                            </Popup>
-                        </Marker> : ''
-                    }
-                    
+                  
+                    {/*mapping over messages like this, and setting newLocation to false will ensure
+                     that the user will see previous messages users have left at the current location*/}  
                     {this.state.messages.map(message => {
+                        
                         if (userPosition[0] === message.latitude && userPosition[1] === message.longitude) {
+                            newLocation = false;
                             return (<Marker key={message._id}
                                 position={[message.latitude, message.longitude]}
                                 icon={myIcon}>
@@ -238,7 +225,7 @@ class App extends Component {
                                     Welcome! Other people have been here too!
                                 <div>{message.name} says: {message.message}</div>
                                     <div>{message.otherMessages ? message.otherMessages.map(subMsg => (
-                                        <div key={message._id}>{subMsg.name} says: {subMsg.message}</div>
+                                        <div key={subMsg._id}>{subMsg.name} says: {subMsg.message}</div>
                                     )) : ''}
                                     </div>
                                 </Popup>
@@ -251,13 +238,24 @@ class App extends Component {
                                     Messages
                                 <div>{message.name} says: {message.message}</div>
                                     <div>{message.otherMessages ? message.otherMessages.map(subMsg => (
-                                        <div key={message._id}>{subMsg.name} says: {subMsg.message}</div>
+                                        <div key={subMsg._id}>{subMsg.name} says: {subMsg.message}</div>
                                     )) : ''}
                                     </div>
                                 </Popup>
                             </Marker>)
                         }
                     })}
+
+                    {this.state.haveUsersLocation && (this.state.messages.length === 0 || newLocation) ?
+                        <Marker
+                            position={userPosition}
+                            icon={myIcon}>
+                            <Popup>
+                                You are here! Leave a message for the world to see!
+
+                            </Popup>
+                        </Marker> : ''
+                    }
                     
         
             </Map>
