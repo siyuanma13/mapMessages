@@ -264,7 +264,8 @@ class App extends Component {
             <Card body className = "card">
                 <CardTitle>Welcome to Guest Maps! </CardTitle>
                 <CardText>Leave a message to mark that you've been here!</CardText>
-                    {!this.state.sendingMessage && !this.state.sentMessage && this.state.haveUsersLocation ?
+                    {
+                        !this.state.sendingMessage && !this.state.sentMessage && this.state.haveUsersLocation ?
                         /*Form containing the user's input*/
                         /*use ternary to hide/show compass loader or form */
                         <Form onSubmit={this.formSubmitted}>
