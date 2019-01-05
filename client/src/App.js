@@ -36,7 +36,7 @@ const  myIcon = L.icon({
 
 });
 //API URL
-const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000/api/v1/messages' : 'production-url-here'
+const API_URL = window.location.hostname === 'localhost' ? 'http://localhost:5000/api/v1/messages' : 'https://tranquil-gorge-46654.herokuapp.com/api/v1/messages'
 
 class App extends Component {
     constructor(props) {
@@ -101,7 +101,7 @@ class App extends Component {
                 });
             });
 
-        setTimeout(() => { console.log(this.state.messages) }, 2000);
+      
 
         //if user allows access to current location, use that location
         navigator.geolocation.getCurrentPosition((position) => {
@@ -163,10 +163,7 @@ class App extends Component {
                 headers: {
                     'Content-Type': 'application/json'
                 }
-            }).then(res => res.json())
-                .then(response => {
-                    console.log(response);
-                });
+            });
 
             //tell the loader we are done loading
             setTimeout(() => {
