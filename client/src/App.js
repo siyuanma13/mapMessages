@@ -260,7 +260,7 @@ class App extends Component {
             {/*Card prompting the user to enter name and message*/}
             <Card body className = "card">
                 <CardTitle>Welcome to Guest Maps! </CardTitle>
-                <CardText>Leave a message to mark that you've been here!</CardText>
+                <CardText>Leave a message to mark that you have been here!</CardText>
                     {
                         !this.state.sendingMessage && !this.state.sentMessage && this.state.haveUsersLocation ?
                         /*Form containing the user's input*/
